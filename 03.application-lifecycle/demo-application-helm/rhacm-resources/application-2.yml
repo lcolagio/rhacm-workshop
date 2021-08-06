@@ -56,7 +56,7 @@ metadata:
     app: php-app
   selfLink: /apis/apps.open-cluster-management.io/v1/namespaces/php/subscriptions/php-app-subscription-1
 spec:
-  name: startx/example-php
+  name: example-php
   channel: php/helm-startx
   packageOverrides:
     - packageAlias: example-php
