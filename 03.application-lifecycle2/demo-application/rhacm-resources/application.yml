@@ -58,3 +58,4 @@ spec:
       operator: In
       values:
       - mariadb-app
+
