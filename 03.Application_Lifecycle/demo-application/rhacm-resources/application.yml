@@ -34,7 +34,7 @@ metadata:
   labels:
     app: mariadb-app
   annotations:
-    apps.open-cluster-management.io/github-path: 03.Application_Lifecycle/demo-application/mariadb-resources
+    apps.open-cluster-management.io/github-path: 03.Application-lifecycle/demo-application/mariadb-resources
 spec:
   channel: mariadb/mariadb-app
   placement:

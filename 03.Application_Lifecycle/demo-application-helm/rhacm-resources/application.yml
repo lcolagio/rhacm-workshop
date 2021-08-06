@@ -1,0 +1,71 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: php
+---
+apiVersion: apps.open-cluster-management.io/v1
+kind: Channel
+metadata:
+  name: helm-startx
+  namespace: php
+spec:
+  type: HelmRepo
+  pathname: https://startxfr.github.io/helm-repository/packages/
+---
+apiVersion: apps.open-cluster-management.io/v1
+kind: PlacementRule
+metadata:
+  name: dev-clusters
+  namespace: php
+spec:
+  clusterConditions:
+    - type: ManagedClusterConditionAvailable
+      status: "True"
+  clusterSelector:
+    matchLabels:
+      environment: dev
+---
+piVersion: app.k8s.io/v1beta1
+kind: Application
+metadata:
+  namespace: php
+  name: php-app
+  annotations:
+    apps.open-cluster-management.io/deployables: ''
+  selfLink: /apis/app.k8s.io/v1beta1/namespaces/php/applications/php-app
+spec:
+  componentKinds:
+    - group: apps.open-cluster-management.io
+      kind: Subscription
+  descriptor: {}
+  selector:
+    matchExpressions:
+      - key: app
+        operator: In
+        values:
+          - php-app
+---
+apiVersion: apps.open-cluster-management.io/v1
+kind: Subscription
+metadata:
+  namespace: php
+  name: php-app-subscription-1
+  annotations: {}
+  labels:
+    app: php-app
+  selfLink: /apis/apps.open-cluster-management.io/v1/namespaces/php/subscriptions/php-app-subscription-1
+spec:
+  name: startx/example-php
+  channel: php/helm-startx
+  packageOverrides:
+    - packageAlias: startx/example-php
+      packageName: startx/example-php
+  placement:
+    placementRef:
+      name: dev-clusters
+      kind: PlacementRule
+
+
+
+
