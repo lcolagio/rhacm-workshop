@@ -2,13 +2,13 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: php
+  name: app-php-ns
 ---
 apiVersion: apps.open-cluster-management.io/v1
 kind: Channel
 metadata:
   name: helm-startx
-  namespace: php
+  namespace: app-php-ns
 spec:
   type: HelmRepo
   pathname: https://startxfr.github.io/helm-repository/packages
@@ -17,7 +17,7 @@ apiVersion: apps.open-cluster-management.io/v1
 kind: PlacementRule
 metadata:
   name: dev-clusters
-  namespace: php
+  namespace: app-php-ns
 spec:
   clusterConditions:
     - type: ManagedClusterConditionAvailable
@@ -29,7 +29,7 @@ spec:
 apiVersion: app.k8s.io/v1beta1
 kind: Application
 metadata:
-  namespace: php
+  namespace: app-php-ns
   name: php-app
   annotations:
     apps.open-cluster-management.io/deployables: ''
@@ -49,7 +49,7 @@ spec:
 apiVersion: apps.open-cluster-management.io/v1
 kind: Subscription
 metadata:
-  namespace: php
+  namespace: app-php-ns
   name: php-app-subscription-1
   annotations: {}
   labels:
@@ -57,7 +57,7 @@ metadata:
   selfLink: /apis/apps.open-cluster-management.io/v1/namespaces/php/subscriptions/php-app-subscription-1
 spec:
   name: example-php
-  channel: php/helm-startx
+  channel: app-php-ns/helm-startx
   packageOverrides:
     - packageAlias: example-php
       packageName: example-php
@@ -65,6 +65,7 @@ spec:
     placementRef:
       name: dev-clusters
       kind: PlacementRule
+---
 
 
 
