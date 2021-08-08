@@ -30,10 +30,10 @@ apiVersion: app.k8s.io/v1beta1
 kind: Application
 metadata:
   namespace: app-php-ns
-  name: php-app
+  name: app-php
   annotations:
     apps.open-cluster-management.io/deployables: ''
-  selfLink: /apis/app.k8s.io/v1beta1/namespaces/php/applications/php-app
+  selfLink: /apis/app.k8s.io/v1beta1/namespaces/php/applications/app-php
 spec:
   componentKinds:
     - group: apps.open-cluster-management.io
@@ -44,17 +44,17 @@ spec:
       - key: app
         operator: In
         values:
-          - php-app
+          - app-php
 ---
 apiVersion: apps.open-cluster-management.io/v1
 kind: Subscription
 metadata:
   namespace: app-php-ns
-  name: php-app-subscription-1
+  name: app-php-subscription-1
   annotations: {}
   labels:
-    app: php-app
-  selfLink: /apis/apps.open-cluster-management.io/v1/namespaces/php/subscriptions/php-app-subscription-1
+    app: app-php
+  selfLink: /apis/apps.open-cluster-management.io/v1/namespaces/php/subscriptions/app-php-subscription-1
 spec:
   name: example-php
   channel: app-php-ns/helm-startx
