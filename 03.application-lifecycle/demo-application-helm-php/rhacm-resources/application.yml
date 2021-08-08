@@ -31,9 +31,9 @@ kind: Application
 metadata:
   namespace: app-php-ns
   name: app-php
-  annotations:
-    apps.open-cluster-management.io/deployables: ''
-  selfLink: /apis/app.k8s.io/v1beta1/namespaces/php/applications/app-php
+#  annotations:
+#    apps.open-cluster-management.io/deployables: ''
+#  selfLink: /apis/app.k8s.io/v1beta1/namespaces/php/applications/app-php
 spec:
   componentKinds:
     - group: apps.open-cluster-management.io
