@@ -2,22 +2,22 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: app-php-ns
+  name: app-node-js-ex-k-ns
 ---
 apiVersion: apps.open-cluster-management.io/v1
 kind: Channel
 metadata:
-  name: helm-startx
-  namespace: app-php-ns
+  name: helm-redhat
+  namespace:  app-node-js-ex-k-ns
 spec:
   type: HelmRepo
-  pathname: https://startxfr.github.io/helm-repository/packages
+  pathname: https://redhat-developer.github.io/redhat-helm-charts
 ---
 apiVersion: apps.open-cluster-management.io/v1
 kind: PlacementRule
 metadata:
   name: dev-clusters
-  namespace: app-php-ns
+  namespace:  app-node-js-ex-k-ns
 spec:
   clusterConditions:
     - type: ManagedClusterConditionAvailable
@@ -29,11 +29,11 @@ spec:
 apiVersion: app.k8s.io/v1beta1
 kind: Application
 metadata:
-  namespace: app-php-ns
-  name: app-php
+  namespace:  app-node-js-ex-k-ns
+  name:  app-node-js-ex-k
 #  annotations:
 #    apps.open-cluster-management.io/deployables: ''
-#  selfLink: /apis/app.k8s.io/v1beta1/namespaces/php/applications/app-php
+#  selfLink: /apis/app.k8s.io/v1beta1/namespaces/php/applications/ app-node-js-ex-k
 spec:
   componentKinds:
     - group: apps.open-cluster-management.io
@@ -44,23 +44,22 @@ spec:
       - key: app
         operator: In
         values:
-          - app-php
+          -  app-node-js-ex-k
 ---
 apiVersion: apps.open-cluster-management.io/v1
 kind: Subscription
 metadata:
-  namespace: app-php-ns
-  name: app-php-subscription-1
+  namespace:  app-node-js-ex-k-ns
+  name:  app-node-js-ex-k-subscription-1
   annotations: {}
   labels:
-    app: app-php
-#  selfLink: /apis/apps.open-cluster-management.io/v1/namespaces/php/subscriptions/app-php-subscription-1
+    app:  app-node-js-ex-k
 spec:
-  name: example-php
-  channel: app-php-ns/helm-startx
+  name: example-node-js-ex-k
+  channel:  app-node-js-ex-k-ns/helm-redhat
   packageOverrides:
-    - packageAlias: example-php
-      packageName: example-php
+    - packageAlias: node-js-ex-k
+      packageName: node-js-ex-k
   placement:
     placementRef:
       name: dev-clusters
