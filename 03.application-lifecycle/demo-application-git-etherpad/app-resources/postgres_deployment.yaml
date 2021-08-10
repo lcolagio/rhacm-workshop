@@ -63,7 +63,11 @@ spec:
           name: postgresql-data
       dnsPolicy: ClusterFirst
       restartPolicy: Always
+#      volumes:
+#      - name: postgresql-data
+#        emptyDir:
+#          medium: ""
       volumes:
       - name: postgresql-data
-        emptyDir:
-          medium: ""
+        persistentVolumeClaim:
+          claimName: postgresql
